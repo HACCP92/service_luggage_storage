@@ -6,8 +6,10 @@ class HomeFirstScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final marker =
-        NMarker(id: 'test', position: NLatLng(37.476839, 126.964602));
+    final marker = NMarker(
+        id: 'test',
+        icon: NOverlayImage.fromAssetImage('assets/marker_icon.png'),
+        position: NLatLng(37.476839, 126.964602));
     return Scaffold(
       body: NaverMap(
         options: const NaverMapViewOptions(
