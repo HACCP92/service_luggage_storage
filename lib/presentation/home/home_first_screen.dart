@@ -2,6 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:geolocator/geolocator.dart';
 
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: HomeFirstScreen(),
+    );
+  }
+}
+
 class HomeFirstScreen extends StatefulWidget {
   const HomeFirstScreen({Key? key}) : super(key: key);
 
@@ -10,7 +23,7 @@ class HomeFirstScreen extends StatefulWidget {
 }
 
 class _HomeFirstScreenState extends State<HomeFirstScreen> {
-  NMapController? _controller;
+  _NaverMapControllerImpl? _controller;
   NMarker? _currentLocationMarker;
 
   @override
@@ -30,7 +43,7 @@ class _HomeFirstScreenState extends State<HomeFirstScreen> {
         ),
         onMapReady: (controller) async {
           setState(() {
-            _controller = controller as NMapController?;
+            _controller = controller as _NaverMapControllerImpl?;
           });
 
           // 현재 위치를 가져옵니다.
@@ -70,8 +83,8 @@ class _HomeFirstScreenState extends State<HomeFirstScreen> {
   }
 }
 
-class NMapController {
-  void addOverlay(NMarker currentLocationMarker) {}
-
+class _NaverMapControllerImpl {
   void removeOverlay(NMarker nMarker) {}
+
+  void addOverlay(NMarker currentLocationMarker) {}
 }
