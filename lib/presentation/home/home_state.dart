@@ -51,6 +51,4 @@ class HomeState {
       largeSizeCount: largeSizeCount ?? this.largeSizeCount,
     );
   }
-
-// JSON serialization methods go here (if needed)
 }
