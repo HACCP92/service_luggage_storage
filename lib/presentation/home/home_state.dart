@@ -1,54 +1,77 @@
-import 'address.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
+import 'package:geolocator/geolocator.dart';
 
-class HomeState {
-  final String username;
-  final String? depart;
-  final String? arrive;
-  final List<Address> recentlyAddresses;
-  final double? latitude;
-  final double? longitude;
-  final String? imageUrl;
-  final int? smallSizeCount;
-  final int? mediumSizeCount;
-  final int? largeSizeCount;
+class HomeState extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
 
-  HomeState({
-    required this.username,
-    this.depart,
-    this.arrive,
-    this.recentlyAddresses = const [],
-    this.latitude,
-    this.longitude,
-    this.imageUrl,
-    this.smallSizeCount,
-    this.mediumSizeCount,
-    this.largeSizeCount,
-  });
+class _HomeState extends State<HomeState> {
+  _NaverMapControllerImpl? _controller;
+  NMarker? _currentLocationMarker;
 
-  HomeState copyWith({
-    String? username,
-    String? depart,
-    String? arrive,
-    List<Address>? recentlyAddresses,
-    double? latitude,
-    double? longitude,
-    String? imageUrl,
-    int? smallSizeCount,
-    int? mediumSizeCount,
-    int? largeSizeCount,
-    required (double, double) currentLocation,
-  }) {
-    return HomeState(
-      username: username ?? this.username,
-      depart: depart ?? this.depart,
-      arrive: arrive ?? this.arrive,
-      recentlyAddresses: recentlyAddresses ?? this.recentlyAddresses,
-      latitude: latitude ?? this.latitude,
-      longitude: longitude ?? this.longitude,
-      imageUrl: imageUrl ?? this.imageUrl,
-      smallSizeCount: smallSizeCount ?? this.smallSizeCount,
-      mediumSizeCount: mediumSizeCount ?? this.mediumSizeCount,
-      largeSizeCount: largeSizeCount ?? this.largeSizeCount,
+  @override
+  Widget build(BuildContext context) {
+    return NaverMap(
+      options: const NaverMapViewOptions(
+        indoorEnable: true,
+        locationButtonEnable: true,
+        consumeSymbolTapEvents: false,
+        initialCameraPosition: NCameraPosition(
+          target: NLatLng(37.476839, 126.964602),
+          zoom: 15,
+          bearing: 0,
+          tilt: 0,
+        ),
+      ),
+      onMapReady: (controller) async {
+        setState(() {
+          _controller = controller as _NaverMapControllerImpl?;
+        });
+
+        // 현재 위치를 가져옵니다.
+        final Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high,
+        );
+
+        // 현재 위치에 마커를 추가합니다.
+        _addCurrentLocationMarker(position);
+      },
     );
+  }
+
+  void _addCurrentLocationMarker(Position position) {
+    final NLatLng currentLatLng =
+        NLatLng(position.latitude, position.longitude);
+
+    // 기존 마커가 있다면 제거합니다.
+    if (_currentLocationMarker != null) {
+      _controller?.removeOverlay(_currentLocationMarker!);
+    }
+
+    // 새로운 현재 위치 마커를 생성합니다.
+    final NMarker currentLocationMarker = NMarker(
+      id: 'current_location',
+      icon: NOverlayImage.fromAssetImage('assets/marker_icon.png'),
+      position: currentLatLng,
+    );
+
+    // 지도에 마커를 추가합니다.
+    _controller?.addOverlay(currentLocationMarker);
+
+    setState(() {
+      _currentLocationMarker = currentLocationMarker;
+    });
+  }
+}
+
+class _NaverMapControllerImpl {
+  void removeOverlay(NMarker nMarker) {
+    // 마커 제거 로직을 구현합니다.
+  }
+
+  void addOverlay(NMarker currentLocationMarker) {
+    // 마커 추가 로직을 구현합니다.
   }
 }
