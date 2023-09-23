@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_naver_map/flutter_naver_map.dart';
+import 'presentation/home/home_state.dart';
 
-import 'presentation/view/main_screen.dart';
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); //어떤것을 준비하는데 기달려준다!
-  await NaverMapSdk.instance.initialize(clientId: 'wguyhkm25y');
-  runApp(const MyApp());
+void main() {
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Marker Database Example',
-      home: MainScreen(),
+    return MaterialApp(
+      home: HomeFirstScreen(),
+    );
+  }
+}
+
+class HomeFirstScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: HomeState(), // HomeState 위젯으로 바꿉니다.
     );
   }
 }
