@@ -2,7 +2,7 @@ import 'package:geolocator/geolocator.dart';
 
 import '../domain/location/location_tracker.dart';
 
-class GeolocatorLocationTracker implements LocationTracker {
+abstract class GeolocatorLocationTracker implements LocationTracker {
   @override
   Future<(double, double)> getLocation() async {
     try {
