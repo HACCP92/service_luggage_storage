@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
+import 'package:service_luggage_storage/presentation/home/home_first_screen.dart';
 import 'package:service_luggage_storage/presentation/home/home_screen.dart';
 
 void main() async {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Marker Database Example',
-      home: MainScreen(),
+      home: HomeFirstScreen(),
     );
   }
 }
