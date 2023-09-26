@@ -31,12 +31,16 @@ class _HomeState extends State<HomeState> {
         });
 
         // 현재 위치를 가져옵니다.
-        final Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high,
-        );
+        try {
+          final Position position = await Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.high,
+          );
 
-        // 현재 위치에 마커를 추가합니다.
-        _addCurrentLocationMarker(position);
+          // 현재 위치에 마커를 추가합니다.
+          _addCurrentLocationMarker(position);
+        } catch (e) {
+          print('Error fetching current location: $e');
+        }
       },
     );
   }
