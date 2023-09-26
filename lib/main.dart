@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
-
-import 'presentation/view/main_screen.dart';
+import 'package:service_luggage_storage/presentation/home/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); //어떤것을 준비하는데 기달려준다!
