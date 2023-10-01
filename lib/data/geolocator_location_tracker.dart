@@ -1,5 +1,4 @@
 import 'package:geolocator/geolocator.dart';
-
 import '../domain/location/location_tracker.dart';
 
 abstract class GeolocatorLocationTracker implements LocationTracker {
